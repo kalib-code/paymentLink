@@ -10,6 +10,8 @@ export const authProvider: AuthBindings = {
       password,
     });
 
+    console.log("data",data)
+
     if (error) {
       return {
         success: false,

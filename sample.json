@@ -1,0 +1,92 @@
+{
+  "id":"evt_ZUpCEXLS5EdHfv2pqdw2BZZT",
+  "type":"event",
+  "attributes":{
+    "type":"link.payment.paid",
+    "livemode":false,
+    "data":{
+      "id":"link_XQjBzTFT5fg2MRr9Me6vnW5P",
+      "type":"link",
+      "attributes":{
+        "amount":10000000,
+        "archived":false,
+        "currency":"PHP",
+        "description":"Hello",
+        "livemode":false,
+        "fee":250000,
+        "remarks":"hello product only ",
+        "status":"paid",
+        "tax_amount":null,
+        "taxes":[
+
+        ],
+        "checkout_url":"https://pm.link/kalibuas/test/h5uELCa",
+        "reference_number":"h5uELCa",
+        "created_at":1680176446,
+        "updated_at":1680176446,
+        "payments":[
+          {
+            "data":{
+              "id":"pay_18eNbWRgJbEtfvXuj9b7yiBL",
+              "type":"payment",
+              "attributes":{
+                "access_url":null,
+                "amount":10000000,
+                "balance_transaction_id":"bal_txn_JCbiAX8DtD3HhibGqGN7ZYmg",
+                "billing":{
+                  "address":{
+                    "city":"Taguig",
+                    "country":"PH",
+                    "line1":"12th floor The Trade and Financial Tower u1206",
+                    "line2":"32nd street and 7th Avenue",
+                    "postal_code":"1630",
+                    "state":"Bonifacio Global City"
+                  },
+                  "email":"kalibuas@gmail.com",
+                  "name":"karl",
+                  "phone":"092767612367"
+                },
+                "currency":"PHP",
+                "description":"Hello",
+                "disputed":false,
+                "external_reference_number":"h5uELCa",
+                "fee":250000,
+                "livemode":false,
+                "net_amount":9750000,
+                "origin":"links",
+                "payment_intent_id":null,
+                "payout":null,
+                "source":{
+                  "id":"src_f3jmwRr79QhJgULEW3eDUuDr",
+                  "type":"gcash"
+                },
+                "statement_descriptor":"Kalibuas Web Solutions",
+                "status":"paid",
+                "tax_amount":null,
+                "metadata":{
+                  "pm_reference_number":"h5uELCa"
+                },
+                "refunds":[
+
+                ],
+                "taxes":[
+
+                ],
+                "available_at":1680598800,
+                "created_at":1680176493,
+                "credited_at":1680685200,
+                "paid_at":1680176493,
+                "updated_at":1680176493
+              }
+            }
+          }
+        ]
+      }
+    },
+    "previous_data":{
+
+    },
+    "created_at":1680176493,
+    "updated_at":1680176493
+  }
+}

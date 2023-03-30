@@ -1,9 +1,12 @@
-import { ThemedLayout, notificationProvider } from "@refinedev/antd";
-import { GitHubBanner, Refine } from "@refinedev/core";
+import {ThemedLayout, notificationProvider , Title} from "@refinedev/antd";
+import { Refine } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 import routerProvider, {
   UnsavedChangesNotifier,
 } from "@refinedev/nextjs-router";
+
+import { LinkOutlined } from "@ant-design/icons";
+
 import type { NextPage } from "next";
 import { AppProps } from "next/app";
 
@@ -11,8 +14,10 @@ import { Header } from "@components/header";
 import { ColorModeContextProvider } from "@contexts";
 import "@refinedev/antd/dist/reset.css";
 import { dataProvider } from "@refinedev/supabase";
+import {nextDataProvider} from "../utils/nextDataProvider";
 import { authProvider } from "src/authProvider";
 import { supabaseClient } from "src/utility";
+import {Typography} from "antd";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   noLayout?: boolean;
@@ -22,6 +27,8 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
+
+
 function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
   const renderComponent = () => {
     if (Component.noLayout) {
@@ -29,7 +36,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
     }
 
     return (
-      <ThemedLayout Header={Header}>
+      <ThemedLayout Header={Header}  >
         <Component {...pageProps} />
       </ThemedLayout>
     );
@@ -37,33 +44,26 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
 
   return (
     <>
-      <GitHubBanner />
       <RefineKbarProvider>
         <ColorModeContextProvider>
           <Refine
             routerProvider={routerProvider}
-            dataProvider={dataProvider(supabaseClient)}
+            dataProvider={{
+              default:dataProvider(supabaseClient),
+                next: nextDataProvider('http://localhost:3000/api'),
+            }}
             authProvider={authProvider}
             notificationProvider={notificationProvider}
             resources={[
               {
-                name: "blog_posts",
-                list: "/blog-posts",
-                create: "/blog-posts/create",
-                edit: "/blog-posts/edit/:id",
-                show: "/blog-posts/show/:id",
+                name: "links",
+                list: "/links",
+                create: "/links/create",
+                edit: "/links/edit/:id",
+                show: "/links/show/:id",
                 meta: {
                   canDelete: true,
-                },
-              },
-              {
-                name: "categories",
-                list: "/categories",
-                create: "/categories/create",
-                edit: "/categories/edit/:id",
-                show: "/categories/show/:id",
-                meta: {
-                  canDelete: true,
+                  icon: <LinkOutlined />,
                 },
               },
             ]}
