@@ -10,7 +10,7 @@ import {
   ShowButton,
   DateField,
 } from "@refinedev/antd";
-import { Table, Space } from "antd";
+import {Table, Space, InputNumber, Badge} from "antd";
 
 export default function Links () {
   const { tableProps } = useTable({
@@ -28,7 +28,10 @@ export default function Links () {
           />
           <Table.Column dataIndex={["attributes","status"]} title="Status" />
           <Table.Column dataIndex={["attributes","description"]} title="Description" />
-          <Table.Column dataIndex={["attributes","amount"]} title="Amount" />
+          <Table.Column  dataIndex={["attributes","amount"]} title="Amount" render={(text)=>{
+            const value = parseInt(text) / 100;
+            return value.toLocaleString('en-PH', { style: 'currency', currency: 'PHP' });
+          }} />
           {/*<Table.Column dataIndex="info" title="Info" />*/}
           {/*<Table.Column*/}
           {/*    title="Actions"*/}
