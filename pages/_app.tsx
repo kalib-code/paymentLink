@@ -5,7 +5,7 @@ import routerProvider, {
   UnsavedChangesNotifier,
 } from "@refinedev/nextjs-router";
 
-import { LinkOutlined } from "@ant-design/icons";
+import { CreditCardOutlined, LinkOutlined } from "@ant-design/icons";
 
 import type { NextPage } from "next";
 import { AppProps } from "next/app";
@@ -64,6 +64,16 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
                 meta: {
                   canDelete: true,
                   icon: <LinkOutlined />,
+                },
+              },{
+                name: "payments",
+                list: "/payments",
+                create: "/payments/create",
+                edit: "/payments/edit/:id",
+                show: "/payments/show/:id",
+                meta: {
+                  canDelete: true,
+                  icon: <CreditCardOutlined />,
                 },
               },
             ]}
