@@ -875,7 +875,23 @@
     temp "^0.9.4"
     tslib "^2.3.1"
 
-"@refinedev/core@^4.0.0", "@refinedev/core@^4.1.2", "@refinedev/core@^4.5.4":
+"@refinedev/core@4.5.8":
+  version "4.5.8"
+  resolved "https://registry.yarnpkg.com/@refinedev/core/-/core-4.5.8.tgz#11ce6058bbb1b6da55f855de76cb84f985d2f6a0"
+  integrity sha512-Pv4NKGyjCTIvAQusqaMZnJ3RLQXPbwiRDrcHPZXluOt2xTuu+ukvSqFYnrrwXajjUsuezeMihmrc11zjJ76sqw==
+  dependencies:
+    "@tanstack/react-query" "^4.10.1"
+    "@tanstack/react-query-devtools" "^4.10.1"
+    export-to-csv-fix-source-map "^0.2.1"
+    lodash "^4.17.21"
+    lodash-es "^4.17.21"
+    papaparse "^5.3.0"
+    pluralize "^8.0.0"
+    qs "^6.10.1"
+    tslib "^2.3.1"
+    warn-once "^0.1.0"
+
+"@refinedev/core@^4.1.2", "@refinedev/core@^4.5.4":
   version "4.5.6"
   resolved "https://registry.yarnpkg.com/@refinedev/core/-/core-4.5.6.tgz#381e11f2dabe3cef8785d29aec608f85235e984b"
   integrity sha512-QqpAxNdS2wFkF8mSm/PXdQpJ1j7VWddrIA3ovyrKKUF+R5XsalG6+vnmRGgF4yjod0yOb2mzDsjoJ6onPoylyg==
