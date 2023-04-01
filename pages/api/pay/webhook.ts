@@ -3,8 +3,9 @@ import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../../types/supabase";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-
+    console.log("=====[ START - WEBHOOK ] ===== ", req.body)
     const method = req.method
+    const { data: { attributes: { data: resBody } } } = req.body;
     if (method !== 'POST') {
         res.status(405).json({ error: 'Method not allowed' })
         return
@@ -15,11 +16,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res,
     })
 
-    console.log(req.body)
-
-    const { data: { attributes: { data: resBody } } } = req.body;
-
-    // find paid payments in array 
     const paidPayments = resBody.attributes.payments.filter((payment: any) => payment.data.attributes.status === "paid");
 
     try {
