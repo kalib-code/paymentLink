@@ -40,6 +40,8 @@ const customTitle = () => {
 
 
 
+
+
 function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
   const renderComponent = () => {
     if (Component.noLayout) {
@@ -52,6 +54,8 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
       </ThemedLayout>
     );
   };
+
+  const baseUrl = process.env.NEXT_PUBLIC_BASEURL
 
   return (
     <>
@@ -69,7 +73,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
             routerProvider={routerProvider}
             dataProvider={{
               default:dataProvider(supabaseClient),
-              next: nextDataProvider('http://localhost:3000/api'),
+              next: nextDataProvider(`${baseUrl}/api`),
             }}
             authProvider={authProvider}
             notificationProvider={notificationProvider}
