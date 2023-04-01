@@ -32,15 +32,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             link: resBody.id,
         }]).select();
 
+
         if (error) {
             return res.status(500).json({ message: error })
         }
 
-        const { data: links, error: error2 } = await supabase.from('links').upsert({
+        const { data: links, error: error2 } = await supabase.from('links').upsert([{
             id: resBody.id,
             type: resBody.type,
             attributes: resBody.attributes,
-        });
+        }]).select();
 
         if (error2) {
             return res.status(500).json({ message: error2 })
