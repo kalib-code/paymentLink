@@ -72,6 +72,8 @@ export default function Payments() {
       <Statistic title="Net Gross" value={currencyFormatter(totalGross)} />
     </Col>
     <Col span={20}>
+
+      {/* @ts-ignore */}
    <Line {...config} />
     </Col>
         
