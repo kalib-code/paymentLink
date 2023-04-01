@@ -12,7 +12,7 @@ import {  Card, Col, Row, Space, Tag, Typography } from "antd";
 import dayjs from "dayjs";
 import { currencyFormatter } from "utils";
 
-const { Title } = Typography;
+const { Title, Paragraph } = Typography;
 
 export default function LinkShow() {
   const { queryResult } = useShow();
@@ -22,7 +22,7 @@ export default function LinkShow() {
 
   return (
     <>
-      <Show title={record?.id} isLoading={isLoading}>
+      <Show title={record?.id} isLoading={isLoading} canEdit={false}>
         <Row gutter={50}>
           <Col span={12}>
             <Card
@@ -31,9 +31,13 @@ export default function LinkShow() {
               <Title level={5}>Reference Id</Title>
               <TextField value={record?.attributes.reference_number} />
               <Title level={5}>Archive</Title>
-              <TextField value={record?.attributes.archived} />
+              <TextField value={record?.attributes.archived ? 'Yes':'No'} />
               <Title level={5}>Link URL</Title>
-              <TextField value={record?.attributes.checkout_url} />
+              <Paragraph copyable={{
+                tooltips: ['copy', 'copied!!'],
+              }}  >
+              {record?.attributes.checkout_url}
+                </Paragraph>
               <Title level={5}>Amount</Title>
               <TextField value={ currencyFormatter(record?.attributes.amount)} />
               <Title level={5}>Description</Title>
@@ -41,13 +45,12 @@ export default function LinkShow() {
               <Title level={5}>Remarks</Title>
               <TextField value={record?.attributes.remarks} />
               <Title level={5}>Created Date</Title>
-              <TextField value={record?.created_at} />
+              <TextField value={dayjs(record?.created_at).format('MMMM D, YYYY: h:mm A')} />
             </Card>
           </Col>
           <Col span={12}>
             <Card
               title="Transaction Logs"
-              
             >
               { record?.attributes.payments[0] ? record?.attributes.payments.map((payment:any) => {
                 const date = dayjs(payment.data.attributes.credited_at).format('MMMM D, YYYY: h:mm A')
@@ -61,7 +64,6 @@ export default function LinkShow() {
                       <TextField value={payment.data.attributes.source.type} />
                       <TextField value={date} />
                       </Space>
-                      
                     </Col>
                 
                   </Row>

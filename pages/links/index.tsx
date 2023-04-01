@@ -17,6 +17,14 @@ const { Paragraph } = Typography;
 export default function Links() {
   const { tableProps } = useTable({
     syncWithLocation: true,
+    sorters: {
+      initial: [
+          {
+              field: "created_at",
+              order: "desc",
+          },
+      ],
+  },
   });
 
   return (

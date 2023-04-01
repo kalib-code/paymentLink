@@ -15,7 +15,15 @@ import { currencyFormatter } from "utils";
 
 export default function Payments() {
   const { tableProps, tableQueryResult } = useTable<ILinkRow, HttpError>({
-    syncWithLocation: true
+    syncWithLocation: true , 
+    sorters: {
+      initial: [
+          {
+              field: "created_at",
+              order: "desc",
+          },
+      ],
+  },
   });
 
   const { data, isLoading } = tableQueryResult;
