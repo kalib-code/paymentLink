@@ -6,12 +6,11 @@ import React from "react";
 import { useShow } from "@refinedev/core";
 import {
   Show,
-  TagField,
   TextField,
-  DateField,
-  NumberField,
 } from "@refinedev/antd";
-import { Typography } from "antd";
+import {  Card, Col, Row, Space, Tag, Typography } from "antd";
+import dayjs from "dayjs";
+import { currencyFormatter } from "utils";
 
 const { Title } = Typography;
 
@@ -22,20 +21,60 @@ export default function LinkShow() {
   const record = data?.data;
 
   return (
-      <Show isLoading={isLoading}>
-        <Title level={5}>Id</Title>
-        <TextField value={record?.id} />
-        <Title level={5}>Created At</Title>
-        <DateField value={record?.created_at} />
-        <Title level={5}>Name</Title>
-        <TextField value={record?.name} />
-        <Title level={5}>Description</Title>
-        <TextField value={record?.description} />
-        <Title level={5}>Amount</Title>
-        <NumberField value={record?.amount ?? ""} />
-        <Title level={5}>Info</Title>
-        <TextField value={record?.info} />
+    <>
+      <Show title={record?.id} isLoading={isLoading}>
+        <Row gutter={50}>
+          <Col span={12}>
+            <Card
+              title="Details"
+            >
+              <Title level={5}>Reference Id</Title>
+              <TextField value={record?.attributes.reference_number} />
+              <Title level={5}>Archive</Title>
+              <TextField value={record?.attributes.archived} />
+              <Title level={5}>Link URL</Title>
+              <TextField value={record?.attributes.checkout_url} />
+              <Title level={5}>Amount</Title>
+              <TextField value={ currencyFormatter(record?.attributes.amount)} />
+              <Title level={5}>Description</Title>
+              <TextField value={record?.attributes.description} />
+              <Title level={5}>Remarks</Title>
+              <TextField value={record?.attributes.remarks} />
+              <Title level={5}>Created Date</Title>
+              <TextField value={record?.created_at} />
+            </Card>
+          </Col>
+          <Col span={12}>
+            <Card
+              title="Transaction Logs"
+              
+            >
+              { record?.attributes.payments[0] ? record?.attributes.payments.map((payment:any) => {
+                const date = dayjs(payment.data.attributes.credited_at).format('MMMM D, YYYY: h:mm A')
+                return (
+                  <Row>
+                    <Col span={12}>
+                      <Space direction={"vertical"}>
+                      <Tag color="success">{payment.data.attributes.status}</Tag>
+                      <TextField value={payment.data.attributes.billing.email} />
+                      <TextField value={payment.data.id} />
+                      <TextField value={payment.data.attributes.source.type} />
+                      <TextField value={date} />
+                      </Space>
+                      
+                    </Col>
+                
+                  </Row>
+                );
+              }) : <TextField value={"No Transaction Logs"} />}
+            
+            </Card>
+          </Col>
+        </Row>
+
+
       </Show>
+    </>
   );
 };
 

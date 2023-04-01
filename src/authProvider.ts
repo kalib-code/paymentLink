@@ -4,13 +4,50 @@ import nookies from "nookies";
 import { supabaseClient } from "./utility";
 
 export const authProvider: AuthBindings = {
+
+  forgotPassword: async ({ email }) => {
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(
+      email
+    );
+
+    if (error) {
+      return {
+        success: false,
+        error,
+      };
+    }
+
+    return {
+      success: true,
+      redirectTo: "/login",
+    };
+  },
+
+  register: async ({ email, password }) => {
+    const { data, error } = await supabaseClient.auth.signUp({
+      email,
+      password,
+    });
+
+    if (error) {
+      return {
+        success: false,
+        error,
+      };
+    }
+
+
+    return {
+      success: true,
+      redirectTo: "/login",
+    };
+
+  },
   login: async ({ email, password }) => {
     const { data, error } = await supabaseClient.auth.signInWithPassword({
       email,
       password,
     });
-
-    console.log("data",data)
 
     if (error) {
       return {

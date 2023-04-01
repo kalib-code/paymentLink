@@ -5,22 +5,16 @@ import { GetServerSideProps } from "next";
 
 import { authProvider } from "src/authProvider";
 
-export default function Login() {
+export default function ForgotPassword() {
   return (
     <AuthPage
-      type="login"
-      formProps={{
-        initialValues: {
-          email: "info@refine.dev",
-          password: "refine-supabase",
-        },
-      }}
+      type="forgotPassword"
       title={<Image src="/maglinksLG.png" width={250} height={120} alt="Refine" />}
     />
   );
 }
 
-Login.noLayout = true;
+ForgotPassword.noLayout = true;
 
 export const getServerSideProps: GetServerSideProps<{}> = async (context) => {
   const { authenticated } = await authProvider.check(context);

@@ -1,11 +1,13 @@
-import {ThemedLayout, notificationProvider , Title} from "@refinedev/antd";
+import {ThemedLayout, notificationProvider} from "@refinedev/antd";
 import { Refine } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 import routerProvider, {
   UnsavedChangesNotifier,
 } from "@refinedev/nextjs-router";
 
-import { CreditCardOutlined, LinkOutlined } from "@ant-design/icons";
+import {ConfigProvider } from "antd";
+
+import { CreditCardOutlined, LinkOutlined, DashboardOutlined } from "@ant-design/icons";
 
 import type { NextPage } from "next";
 import { AppProps } from "next/app";
@@ -17,7 +19,8 @@ import { dataProvider } from "@refinedev/supabase";
 import {nextDataProvider} from "../utils/nextDataProvider";
 import { authProvider } from "src/authProvider";
 import { supabaseClient } from "src/utility";
-import {Typography} from "antd";
+
+import Image from "next/image";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   noLayout?: boolean;
@@ -26,6 +29,14 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
+
+const customTitle = () => {
+  return (
+    <div style={{display: "flex", alignItems: "center"}}>
+      <Image src="/maglinksLG.png" width={130} height={70} alt="Maglicks" />
+    </div>
+  )
+}
 
 
 
@@ -36,7 +47,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
     }
 
     return (
-      <ThemedLayout Header={Header}  >
+      <ThemedLayout Header={Header} Title={customTitle}  >
         <Component {...pageProps} />
       </ThemedLayout>
     );
@@ -44,17 +55,32 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
 
   return (
     <>
+    <ConfigProvider
+     theme={{
+      token: {
+        colorPrimary: '#F44336',
+      },
+    }}
+    >
       <RefineKbarProvider>
-        <ColorModeContextProvider>
+        {/* <ColorModeContextProvider> */}
+  
           <Refine
             routerProvider={routerProvider}
             dataProvider={{
               default:dataProvider(supabaseClient),
-                next: nextDataProvider('http://localhost:3000/api'),
+              next: nextDataProvider('http://localhost:3000/api'),
             }}
             authProvider={authProvider}
             notificationProvider={notificationProvider}
             resources={[
+              {
+                name: "dashboard",
+                list: "/dashboard",
+                meta: {
+                  icon: <DashboardOutlined />,
+                },
+              },
               {
                 name: "links",
                 list: "/links",
@@ -62,7 +88,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
                 edit: "/links/edit/:id",
                 show: "/links/show/:id",
                 meta: {
-                  canDelete: true,
                   icon: <LinkOutlined />,
                 },
               },{
@@ -72,10 +97,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
                 edit: "/payments/edit/:id",
                 show: "/payments/show/:id",
                 meta: {
-                  canDelete: true,
                   icon: <CreditCardOutlined />,
                 },
-              },
+              }
             ]}
             options={{
               syncWithLocation: true,
@@ -86,8 +110,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
             <RefineKbar />
             <UnsavedChangesNotifier />
           </Refine>
-        </ColorModeContextProvider>
+        {/* </ColorModeContextProvider> */}
       </RefineKbarProvider>
+      </ConfigProvider>
     </>
   );
 }
