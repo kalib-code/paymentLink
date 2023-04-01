@@ -15,6 +15,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res,
     })
 
+    console.log(req.body)
+
     const { data: { attributes: { data: resBody } } } = req.body;
 
     // find paid payments in array 
