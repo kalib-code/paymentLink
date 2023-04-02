@@ -9,12 +9,6 @@ export default function Login() {
   return (
     <AuthPage
       type="login"
-      formProps={{
-        initialValues: {
-          email: "info@refine.dev",
-          password: "refine-supabase",
-        },
-      }}
       title={<Image src="/maglinksLG.png" width={250} height={120} alt="Refine" />}
     />
   );

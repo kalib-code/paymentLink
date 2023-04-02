@@ -1,11 +1,11 @@
-import {ThemedLayout, notificationProvider} from "@refinedev/antd";
+import { ThemedLayout, notificationProvider } from "@refinedev/antd";
 import { Refine } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 import routerProvider, {
   UnsavedChangesNotifier,
 } from "@refinedev/nextjs-router";
 
-import {ConfigProvider } from "antd";
+import { ConfigProvider } from "antd";
 
 import { CreditCardOutlined, LinkOutlined, DashboardOutlined } from "@ant-design/icons";
 
@@ -15,7 +15,7 @@ import { AppProps } from "next/app";
 import { Header } from "@components/header";
 import "@refinedev/antd/dist/reset.css";
 import { dataProvider, liveProvider } from "@refinedev/supabase";
-import {nextDataProvider} from "../utils/nextDataProvider";
+import { nextDataProvider } from "../utils/nextDataProvider";
 import { authProvider } from "src/authProvider";
 import { supabaseClient } from "src/utility";
 
@@ -31,7 +31,7 @@ type AppPropsWithLayout = AppProps & {
 
 const customTitle = () => {
   return (
-    <div style={{display: "flex", alignItems: "center"}}>
+    <div style={{ display: "flex", alignItems: "center" }}>
       <Image src="/maglinksLG.png" width={130} height={70} alt="Maglicks" />
     </div>
   )
@@ -58,20 +58,20 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
 
   return (
     <>
-    <ConfigProvider
-     theme={{
-      token: {
-        colorPrimary: '#F44336',
-      },
-    }}
-    >
-      <RefineKbarProvider>
-        {/* <ColorModeContextProvider> */}
-  
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: '#F44336',
+          },
+        }}
+      >
+        <RefineKbarProvider>
+          {/* <ColorModeContextProvider> */}
+
           <Refine
             routerProvider={routerProvider}
             dataProvider={{
-              default:dataProvider(supabaseClient),
+              default: dataProvider(supabaseClient),
               next: nextDataProvider(`${baseUrl}/api`),
             }}
             authProvider={authProvider}
@@ -89,16 +89,13 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
                 name: "links",
                 list: "/links",
                 create: "/links/create",
-                edit: "/links/edit/:id",
                 show: "/links/show/:id",
                 meta: {
                   icon: <LinkOutlined />,
                 },
-              },{
+              }, {
                 name: "payments",
                 list: "/payments",
-                create: "/payments/create",
-                edit: "/payments/edit/:id",
                 show: "/payments/show/:id",
                 meta: {
                   icon: <CreditCardOutlined />,
@@ -115,8 +112,8 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
             <RefineKbar />
             <UnsavedChangesNotifier />
           </Refine>
-        {/* </ColorModeContextProvider> */}
-      </RefineKbarProvider>
+          {/* </ColorModeContextProvider> */}
+        </RefineKbarProvider>
       </ConfigProvider>
     </>
   );
