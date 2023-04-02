@@ -38,9 +38,6 @@ const customTitle = () => {
 }
 
 
-
-
-
 function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
   const renderComponent = () => {
     if (Component.noLayout) {

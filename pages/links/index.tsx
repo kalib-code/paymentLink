@@ -10,6 +10,8 @@ import {
   DateField,
   useModal,
   useForm,
+
+
 } from "@refinedev/antd";
 import { Table, Space, Typography, Tag, Modal, Button, Form, Input, InputNumber } from "antd";
 import { currencyFormatter } from "utils";
@@ -31,26 +33,28 @@ export default function Links() {
     },
   });
 
-  const { formProps, saveButtonProps, queryResult } = useForm({
+  const { formProps, onFinish } = useForm({
     resource: "pay/link",
     dataProviderName: "next",
     onMutationSuccess: async () => {
       close();
     },
-    successNotification: (data, values, resource) => {
+    successNotification: () => {
       return {
-        message: "Paylink Successfully Created.",
+        message: "PayLink Successfully Created.",
         description: "Success with no errors",
         type: "success",
       };
     },
-  });
 
+  });
 
   const { modalProps, show, close } = useModal({
     modalProps: {
-      title: "Create Paylink",
-      okButtonProps: { ...saveButtonProps }
+      title: "Create PayLink",
+      onOk(e) {
+        onFinish();
+      },
     }
   });
 
@@ -106,7 +110,6 @@ export default function Links() {
           </Form.Item>
         </Form>
       </Modal>
-
       <Table {...tableProps} rowKey="id">
         <Table.Column dataIndex={["attributes", "checkout_url"]} title="Link" render={(value) => <Paragraph copyable={{
           tooltips: ['click here', 'you clicked!!'],
