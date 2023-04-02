@@ -13,9 +13,8 @@ import type { NextPage } from "next";
 import { AppProps } from "next/app";
 
 import { Header } from "@components/header";
-import { ColorModeContextProvider } from "@contexts";
 import "@refinedev/antd/dist/reset.css";
-import { dataProvider } from "@refinedev/supabase";
+import { dataProvider, liveProvider } from "@refinedev/supabase";
 import {nextDataProvider} from "../utils/nextDataProvider";
 import { authProvider } from "src/authProvider";
 import { supabaseClient } from "src/utility";
@@ -76,6 +75,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
               next: nextDataProvider(`${baseUrl}/api`),
             }}
             authProvider={authProvider}
+            liveProvider={liveProvider(supabaseClient)}
             notificationProvider={notificationProvider}
             resources={[
               {
@@ -108,6 +108,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
             options={{
               syncWithLocation: true,
               warnWhenUnsavedChanges: true,
+              liveMode: "auto",
             }}
           >
             {renderComponent()}
