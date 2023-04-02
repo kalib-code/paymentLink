@@ -14,9 +14,9 @@ import {
 import { Table, Space, Typography, Tag, Modal, Button, Form, Input, InputNumber } from "antd";
 import { currencyFormatter } from "utils";
 import { ILinkRow } from "types";
-import TextArea from "antd/es/input/TextArea";
 
-const { Paragraph, Link } = Typography;
+const { Paragraph, Link, } = Typography;
+const { TextArea } = Input;
 
 export default function Links() {
   const { tableProps } = useTable<ILinkRow, HttpError>({
@@ -53,8 +53,6 @@ export default function Links() {
       okButtonProps: { ...saveButtonProps }
     }
   });
-
-
 
   return (
     <List
